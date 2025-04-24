@@ -1,0 +1,552 @@
+:root {
+	--profile-bg: white;
+    --profile-text: #333;
+    --dropdown-shadow: rgba(0, 0, 0, 0.1);
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --text-color: #333;
+    --bg-color: #f5f5f5;
+    --card-bg: white;
+    --header-bg: #2c3e50;
+    --header-text: white;
+    --input-bg: white;
+    --input-border: #ddd;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+}
+
+[data-theme="dark"] {
+	--profile-bg: #34495e;
+    --profile-text: #ecf0f1;
+    --dropdown-shadow: rgba(0, 0, 0, 0.3);
+    --primary-color: #2980b9;
+    --secondary-color: #34495e;
+    --text-color: #ecf0f1;
+    --bg-color: #2c3e50;
+    --card-bg: #34495e;
+    --header-bg: #1a252f;
+    --header-text: #ecf0f1;
+    --input-bg: #2c3e50;
+    --input-border: #4a6278;
+    --error-color: #e74c3c;
+    --success-color: #27ae60;
+}
+
+/* Основные стили */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--header-text);
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover {
+    transform: rotate(30deg);
+}
+
+.auth-btn {
+    background-color: transparent;
+    color: var(--header-text);
+    border: 1px solid var(--header-text);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.auth-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.register-btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.register-btn:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 200px);
+}
+
+.main-menu h1 {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    transition: color 0.3s;
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.topic-btn {
+    background-color: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.topic-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.topic-page {
+    display: block !important; /* Принудительно показываем страницу */
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.lessons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.topic-page h2 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    transition: color 0.3s;
+}
+
+.back-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #c0392b;
+    transform: translateX(-5px);
+}
+
+/* Модальные окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px; /* Смещаем левее */
+    top: 15px;
+    font-size: 28px; /* Увеличиваем размер */
+    cursor: pointer;
+    color: #7f8c8d;
+    transition: color 0.3s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close:hover {
+    color: var(--accent-color);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal h2 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0 0;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    transition: all 0.3s;
+}
+
+form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    height: 1rem;
+    margin-top: 0.2rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.remember-me input {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #7f8c8d;
+}
+
+.auth-switch a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.auth-switch a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Анимации */
+.animate__animated {
+    animation-duration: 0.5s;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .buttons-container {
+        grid-template-columns: 1fr;
+    }
+    
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .header-left, .header-right {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .auth-btn {
+        width: 100%;
+    }
+}
+.profile-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.profile-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--profile-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--dropdown-shadow);
+    padding: 1rem;
+    width: 200px;
+    z-index: 100;
+    margin-top: 0.5rem;
+    display: none;
+    animation: fadeIn 0.3s;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+
+.profile-info {
+    color: var(--profile-text);
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Улучшения для темной темы */
+[data-theme="dark"] .topic-btn {
+    background-color: var(--secondary-color);
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .lesson-card {
+    background-color: var(--header-bg);
+    border: 1px solid var(--input-border);
+}
+
+[data-theme="dark"] .back-btn {
+    background-color: var(--primary-color);
+}
+
+[data-theme="dark"] .back-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Стили для кнопки назад в темах */
+.back-btn-topic {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 1rem 0;
+    transition: all 0.3s;
+}
+
+.back-btn-topic:hover {
+    background-color: #c0392b;
+    transform: translateX(-5px);
+}
+/* Стили для выпадающего профиля на мобильных */
+@media (max-width: 600px) {
+    .profile-dropdown {
+        width: 180px;
+        right: 0;
+        left: auto;
+        padding: 0.8rem;
+    }
+    
+    .profile-info h3 {
+        font-size: 1rem;
+    }
+    
+    .profile-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .logout-btn {
+        padding: 0.4rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Стили для страниц тем */
+.topic-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.back-btn-topic {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start;
+}
+
+.back-btn-topic:hover {
+    background-color: #c0392b;
+    transform: translateX(-5px);
+}
+
+.lesson-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.lesson-card:hover {
+    transform: translateY(-3px);
+}
+
+.start-lesson-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0.8rem;
+    transition: background-color 0.3s;
+}
+
+.start-lesson-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Адаптация страниц тем для мобильных */
+@media (max-width: 600px) {
+    .topic-page {
+        padding: 1rem;
+    }
+    
+    .topic-header {
+        flex-direction: column;
+    }
+    
+    .lesson-card {
+        padding: 1rem;
+    }
+    
+    .start-lesson-btn {
+        width: 100%;
+    }
+}
+.animate__animated {
+    animation-duration: 0.4s;
+}
+
+.topic-page.animate__fadeIn {
+    animation-delay: 0.2s;
+}
